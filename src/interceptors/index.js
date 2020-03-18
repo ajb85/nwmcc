@@ -15,10 +15,13 @@ axios.interceptors.request.use(req => {
     req.headers.authorization = token;
   }
 
-  //   if (!state.account.id && !(req.url === '/account' && req.method === 'get')) {
-  //     // Get account info if not found in state
-  //     store.dispatch(getAccountInfo());
-  //   }
+  if (
+    !state.account.id &&
+    !(req.url.split('/')[0] === 'account' && req.method === 'get')
+  ) {
+    // Get account info if not found in state
+    store.dispatch(getAccountInfo());
+  }
   return req;
 });
 
