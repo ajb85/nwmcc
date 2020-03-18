@@ -12,12 +12,12 @@ import history from './history.js';
 // Axios interceptors
 import './interceptors/';
 
-import App from './App.js';
+import Routes from './components/Routes/';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <Routes />
     </Router>
   </Provider>,
   document.getElementById('root')
