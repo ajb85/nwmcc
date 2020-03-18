@@ -2,7 +2,6 @@ import axios from 'axios';
 import store from 'store.js';
 import { success, failure } from './responseHandler.js';
 import { loading } from '../reducers/app.js';
-import { getAccountInfo } from '../reducers/account.js';
 
 axios.defaults.baseURL = `${process.env.REACT_APP_BASEURL}`;
 
