@@ -12,6 +12,10 @@ import history from './history.js';
 // Axios interceptors
 import './interceptors/';
 
+// Styles
+import 'SCSS/index.scss';
+import 'faLibrary.js';
+
 import Routes from './components/Routes/';
 
 ReactDOM.render(
