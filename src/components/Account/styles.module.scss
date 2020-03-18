@@ -1,0 +1,33 @@
+.Account {
+  max-width: 400px;
+  padding: 15px;
+  height: 100vh;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  div {
+    margin: 10px 0;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 250px;
+
+    &:first-of-type {
+      margin-top: 50px;
+    }
+
+    input {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    label {
+      margin-right: 15px;
+    }
+  }
+  button {
+    min-width: 250px;
+    cursor: pointer;
+  }
+}
