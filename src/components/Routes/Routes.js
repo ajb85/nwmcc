@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Account from 'components/Account/';
+import Chat from 'components/Chat/';
 
 import { getBackendPulse } from 'reducers/app.js';
 
@@ -25,7 +26,7 @@ function Routes(props) {
       {isAwake ? (
         <>
           <Route exact path="/">
-            {token ? <p>Welcome home</p> : <Redirect to="/login" />}
+            {token ? <Chat /> : <Redirect to="/login" />}
           </Route>
           <Route path="/login">
             <Account isRegister={false} />
