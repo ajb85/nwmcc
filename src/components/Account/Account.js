@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { loginAndRegister } from 'reducers/account.js';
+import { logError } from 'reducers/errors.js';
 
 import history from 'history.js';
 
+import styles from './styles.module.scss';
+
 function Account({ isRegistering }) {
+  const { errors } = useSelector(state => ({
+    errors: state.errors.account
+  }));
+
+  const dispatch = useDispatch();
   const [input, setInput] = useState({
     email: '',
     nickname: '',
@@ -13,15 +24,53 @@ function Account({ isRegistering }) {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
+  // eslint-disable-next-line
+  const isValidEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const canSubmit = isRegistering
+    ? input.email.length && input.nickname.length && input.password.length
+    : input.email.length && input.password.length;
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    let error;
+    if (canSubmit) {
+      if (isValidEmail.test(input.email)) {
+        const account = { ...input };
+        if (!isRegistering) {
+          delete account.nickname;
+        }
+        dispatch(loginAndRegister(account));
+      } else {
+        error = {
+          section: 'account',
+          subsection: isRegistering ? 'register' : 'login',
+          error: 'Please enter a valid email address'
+        };
+      }
+    } else {
+      error = {
+        section: 'account',
+        subsection: isRegistering ? 'register' : 'login',
+        error: `Please complete the form before ${
+          isRegistering ? 'registering.' : 'logging in.'
+        }`
+      };
+    }
+    if (error) {
+      dispatch(logError(error));
+    }
+  };
+
+  const errorMessage = errors[isRegistering ? 'register' : 'login'];
   return (
-    <form>
+    <form onSubmit={e => handleSubmit(e)} className={styles.Account}>
       <div>
         <label>Email</label>
         <input
           type="text"
           value={input.email}
           name="email"
+          autocomplete="email"
           onChange={e => handleFormChange(e)}
         />
       </div>
@@ -29,9 +78,10 @@ function Account({ isRegistering }) {
       <div>
         <label>Password</label>
         <input
-          type="text"
+          type="password"
           value={input.password}
           name="password"
+          autocomplete="new-password"
           onChange={e => handleFormChange(e)}
         />
       </div>
@@ -47,13 +97,24 @@ function Account({ isRegistering }) {
           />
         </div>
       )}
-      <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
+      <button
+        disabled={!canSubmit}
+        type="submit"
+        style={{
+          cursor: canSubmit ? 'pointer' : 'auto',
+          opacity: canSubmit ? 1 : 0.5
+        }}
+      >
+        {isRegistering ? 'Register' : 'Login'}
+      </button>
       <button
         type="button"
         onClick={() => history.push(isRegistering ? '/login' : '/register')}
       >
         {isRegistering ? 'Login to existing account' : 'Register a new account'}
       </button>
+
+      <p>{errorMessage ? errorMessage : ''}</p>
     </form>
   );
 }
