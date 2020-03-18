@@ -70,7 +70,7 @@ function Account({ isRegistering }) {
           type="text"
           value={input.email}
           name="email"
-          autocomplete="email"
+          autoComplete="email"
           onChange={e => handleFormChange(e)}
         />
       </div>
@@ -81,7 +81,7 @@ function Account({ isRegistering }) {
           type="password"
           value={input.password}
           name="password"
-          autocomplete="new-password"
+          autoComplete="new-password"
           onChange={e => handleFormChange(e)}
         />
       </div>
