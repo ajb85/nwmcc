@@ -24,6 +24,9 @@ function Routes(props) {
     <>
       {isAwake ? (
         <>
+          <Route exact path="/">
+            {token ? <p>Welcome home</p> : <Redirect to="/login" />}
+          </Route>
           <Route path="/login">
             <Account isRegister={false} />
           </Route>
