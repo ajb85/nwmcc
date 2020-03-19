@@ -35,20 +35,24 @@ class Socket {
   }
 
   emit(room, data) {
-    console.log(2);
     this._identify();
     return this.socket.emit(room, data);
+  }
+
+  subscribe(room) {
+    console.log('SUBSCRIBING TO: ', room);
+    this.emit('subscribe', room);
   }
 
   _listen(room, cb) {
     if (!this.subscribed[room]) {
       this.subscribed[room] = true;
+      this.subscribe(room);
       return this.socket.on(room, cb.bind(this));
     }
   }
 
   _identify() {
-    console.log('THIS: ', this);
     const { token } = this.store.getState().account;
     if (!this.identified && token) {
       this.socket.emit('identify', token);
