@@ -1,8 +1,8 @@
-import addMessage from 'reducers/chats.js';
+import { addMessage } from 'reducers/chats.js';
+import store from 'store.js';
 
 export default {
   newMessage: function(message) {
-    console.log('THIS: ', this);
-    this.store.dispatch(addMessage(message));
+    store.dispatch(addMessage(message));
   }
 };
