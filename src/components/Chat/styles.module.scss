@@ -20,6 +20,14 @@
 
   p {
     margin: 5px 0;
+
+    &.info {
+      text-align: right;
+    }
+  }
+
+  .authorMessage {
+    text-align: right;
   }
 }
 
