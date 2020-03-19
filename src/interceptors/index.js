@@ -14,7 +14,7 @@ axios.interceptors.request.use(req => {
   if (token) {
     req.headers.authorization = token;
   }
-  console.log(req.url);
+
   if (
     !state.account.id &&
     !(req.url.split('/')[0] === 'account' && req.method === 'get')
