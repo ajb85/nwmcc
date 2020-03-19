@@ -4,12 +4,14 @@ const initialState = {
   rooms: {},
   messages: {},
   limit: null,
-  activeChat: 1
+  activeChat: 1,
+  users: []
 };
 
 const SET_CHATS = 'CHATS/SAVE';
 const SET_MESSAGES = 'CHATS/MESSAGES/SAVE';
 const NEW_MESSAGE = 'CHATS/MESSAGES/NEW';
+const SET_USERS = 'CHATS/USERS/SAVE';
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -41,6 +43,8 @@ export default (state = initialState, action) => {
         ...state,
         messages: newMessages
       };
+    case SET_USERS:
+      return { ...state, users: action.payload };
     default:
       return state;
   }
@@ -66,3 +70,5 @@ export const populateChats = () => dispatch => {
     }
   });
 };
+
+export const setUsers = userlist => ({ type: SET_USERS, payload: userlist });
