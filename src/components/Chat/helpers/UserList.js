@@ -9,12 +9,10 @@ function UserList(props) {
   if (!users.length) {
     return <p>Loading...</p>;
   }
-  const test = [
-    'asdlfkjsdflskjfslfkjsdfldskjsdflkjsdflkdsjfdslkfjsdlfkjdlkdfjsldkfjsldkfsjdkl'
-  ];
+
   return (
     <div className={styles.UserList}>
-      {test.map(nickname => (
+      {users.map(nickname => (
         <p>{nickname}</p>
       ))}
     </div>
