@@ -44,7 +44,8 @@ function Log(props) {
       return m.user_id !== user_id ? (
         <div ref={ref} key={m.id} className={styles.message}>
           <p>
-            {m.author}: {m.content}
+            <span style={{ fontWeight: 800 }}>{m.author}</span>:{'  '}
+            {m.content}
           </p>
         </div>
       ) : (
