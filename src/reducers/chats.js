@@ -49,7 +49,6 @@ export default (state = initialState, action) => {
 export const fetchMessages = chat_id => dispatch => {
   axios.get(`/chats/${chat_id}/messages`).then(res => {
     if (res) {
-      console.log('MSGS: ', res.data);
       dispatch({
         type: SET_MESSAGES,
         payload: { ...res.data, chat_id }
