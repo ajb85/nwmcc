@@ -1,11 +1,19 @@
+@import 'SCSS/variables.scss';
+
 .Account {
   max-width: 400px;
+  min-width: 255px;
   padding: 15px;
-  height: 100vh;
   margin: 0 auto;
 
   display: flex;
   flex-direction: column;
+
+  h1 {
+    min-width: 255px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
 
   div {
     margin: 10px 0;
@@ -14,20 +22,46 @@
     min-width: 250px;
 
     &:first-of-type {
-      margin-top: 50px;
+      margin-top: $lh;
     }
 
     input {
       width: 100%;
       max-width: 300px;
+      line-height: $lh;
+      padding: 2px 5px;
+      font-size: 0.8rem;
     }
 
     label {
       margin-right: 15px;
+      min-width: 85px;
+      line-height: $lh;
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
   button {
-    min-width: 250px;
+    min-width: 255px;
+    width: 100%;
+    height: $lh;
+    font-size: 0.8rem;
+    margin: $lh/2 auto;
     cursor: pointer;
   }
+}
+
+.toggle {
+  text-align: center;
+  margin: $lh/2 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error {
+  margin: $lh/2 0;
+  text-align: center;
+  color: red;
 }
