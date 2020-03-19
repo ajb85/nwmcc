@@ -63,59 +63,64 @@ function Account({ isRegistering }) {
 
   const errorMessage = errors[isRegistering ? 'register' : 'login'];
   return (
-    <form onSubmit={e => handleSubmit(e)} className={styles.Account}>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          value={input.email}
-          name="email"
-          autoComplete="email"
-          onChange={e => handleFormChange(e)}
-        />
-      </div>
-
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          value={input.password}
-          name="password"
-          autoComplete="new-password"
-          onChange={e => handleFormChange(e)}
-        />
-      </div>
-
-      {isRegistering && (
+    <>
+      <h1>React App Chatting!</h1>
+      <form onSubmit={e => handleSubmit(e)} className={styles.Account}>
         <div>
-          <label>Nickname</label>
+          <label>Email</label>
           <input
             type="text"
-            value={input.nickname}
-            name="nickname"
+            value={input.email}
+            name="email"
+            autoComplete="email"
             onChange={e => handleFormChange(e)}
           />
         </div>
-      )}
-      <button
-        disabled={!canSubmit}
-        type="submit"
-        style={{
-          cursor: canSubmit ? 'pointer' : 'auto',
-          opacity: canSubmit ? 1 : 0.5
-        }}
-      >
-        {isRegistering ? 'Register' : 'Login'}
-      </button>
-      <button
-        type="button"
-        onClick={() => history.push(isRegistering ? '/login' : '/register')}
-      >
-        {isRegistering ? 'Login to existing account' : 'Register a new account'}
-      </button>
 
-      <p>{errorMessage ? errorMessage : ''}</p>
-    </form>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={input.password}
+            name="password"
+            autoComplete="new-password"
+            onChange={e => handleFormChange(e)}
+          />
+        </div>
+
+        {isRegistering && (
+          <div>
+            <label>Nickname</label>
+            <input
+              type="text"
+              value={input.nickname}
+              name="nickname"
+              onChange={e => handleFormChange(e)}
+            />
+          </div>
+        )}
+        <button
+          disabled={!canSubmit}
+          type="submit"
+          style={{
+            cursor: canSubmit ? 'pointer' : 'auto',
+            opacity: canSubmit ? 1 : 0.5
+          }}
+        >
+          {isRegistering ? 'Register' : 'Login'}
+        </button>
+        <p
+          className={styles.toggle}
+          onClick={() => history.push(isRegistering ? '/login' : '/register')}
+        >
+          {isRegistering
+            ? 'Login to existing account'
+            : 'Register a new account'}
+        </p>
+
+        <p className={styles.error}>{errorMessage ? errorMessage : ''}</p>
+      </form>
+    </>
   );
 }
 
