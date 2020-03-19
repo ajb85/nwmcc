@@ -1,9 +1,10 @@
 import axios from 'axios';
 import store from 'store.js';
 import { success, failure } from './responseHandler.js';
+import { getAccountInfo } from 'reducers/account.js';
 import { loading } from '../reducers/app.js';
 
-axios.defaults.baseURL = `${process.env.REACT_APP_BASEURL}`;
+axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 
 axios.interceptors.request.use(req => {
   store.dispatch(loading());
@@ -12,6 +13,14 @@ axios.interceptors.request.use(req => {
 
   if (token) {
     req.headers.authorization = token;
+  }
+  console.log(req.url);
+  if (
+    !state.account.id &&
+    !(req.url.split('/')[0] === 'account' && req.method === 'get')
+  ) {
+    // Get account info if not found in state
+    store.dispatch(getAccountInfo());
   }
 
   return req;
