@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         }, {})
       };
     case SET_MESSAGES:
-      const { chat_id } = action.payload.messages[0];
+      const { chat_id } = action.payload;
       return {
         ...state,
         limit: action.payload.limit,
@@ -49,7 +49,11 @@ export default (state = initialState, action) => {
 export const fetchMessages = chat_id => dispatch => {
   axios.get(`/chats/${chat_id}/messages`).then(res => {
     if (res) {
-      dispatch({ type: SET_MESSAGES, payload: res.data });
+      console.log('MSGS: ', res.data);
+      dispatch({
+        type: SET_MESSAGES,
+        payload: { ...res.data, chat_id }
+      });
     }
   });
 };
