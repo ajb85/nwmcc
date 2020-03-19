@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchMessages } from 'reducers/chats.js';
@@ -6,6 +6,7 @@ import { fetchMessages } from 'reducers/chats.js';
 import styles from '../styles.module.scss';
 
 function Log(props) {
+  const chatBottom = useRef(null);
   const { messages, user_id } = useSelector(state => ({
     messages: state.chats.messages[state.chats.activeChat],
     user_id: state.account.id
@@ -19,6 +20,12 @@ function Log(props) {
       setFetched(true);
     }
   }, [messages, dispatch, fetched]);
+
+  useEffect(() => {
+    if (messages && messages.length) {
+      chatBottom.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
   const displayMessages = () => {
     if (!messages) {
       return <p className={styles.info}>Fetching your messages...</p>;
@@ -32,15 +39,16 @@ function Log(props) {
       );
     }
 
-    return messages.map(m => {
+    return messages.map((m, i) => {
+      const ref = i === 0 ? chatBottom : null;
       return m.user_id !== user_id ? (
-        <div key={m.id} className={styles.message}>
+        <div ref={ref} key={m.id} className={styles.message}>
           <p>
             {m.author}: {m.content}
           </p>
         </div>
       ) : (
-        <div key={m.id} className={styles.authorMessage}>
+        <div ref={ref} key={m.id} className={styles.authorMessage}>
           <p>{m.content}</p>
         </div>
       );
