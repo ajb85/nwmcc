@@ -1,6 +1,13 @@
 @import 'SCSS/variables.scss';
 
 .Chat {
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  max-width: 1200px;
   div.top {
     height: calc(90vh - 20px);
 
@@ -51,19 +58,17 @@
 
 .Interface {
   width: 100%;
-  height: 10vh;
+  height: 35px;
   min-height: 20px;
 
   display: flex;
   align-items: center;
 
-  input,
-  textarea {
+  input {
     width: 85%;
     min-width: 200px;
-    height: 7vh;
-    min-height: 20px;
-    resize: none;
+    height: $lh;
+    min-height: $lh;
     font-size: 0.8rem;
     padding: 5px;
   }
