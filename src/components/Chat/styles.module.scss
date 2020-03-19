@@ -30,6 +30,7 @@
 
   p {
     margin: 5px 0;
+    line-height: $lh;
     word-wrap: break-word;
     &.info {
       text-align: right;
@@ -38,6 +39,9 @@
 
   .authorMessage {
     text-align: right;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: lightgrey;
   }
 }
 
