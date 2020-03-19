@@ -29,15 +29,17 @@ export default (state = initialState, action) => {
         messages: { ...state.messages, [chat_id]: action.payload.messages }
       };
     case NEW_MESSAGE:
+      const room_id = action.payload.chat_id;
+      const newMessages = {
+        ...state.messages,
+        [room_id]: [
+          action.payload,
+          ...state.messages[room_id].slice(0, state.limit - 1 || 49)
+        ]
+      };
       return {
         ...state,
-        message: {
-          ...state.messages,
-          [action.payload.chat_id]: [
-            action.payload,
-            ...state.messages.slice(0, state.limit - 1 || 49)
-          ]
-        }
+        messages: newMessages
       };
     default:
       return state;
@@ -53,3 +55,11 @@ export const fetchMessages = chat_id => dispatch => {
 };
 
 export const addMessage = message => ({ type: NEW_MESSAGE, payload: message });
+
+export const populateChats = () => dispatch => {
+  axios.get('/chats/byUser').then(res => {
+    if (res) {
+      dispatch({ type: SET_CHATS, payload: res.data });
+    }
+  });
+};
