@@ -40,7 +40,6 @@ class Socket {
   }
 
   subscribe(room) {
-    console.log('SUBSCRIBING TO: ', room);
     this.emit('subscribe', room);
   }
 
