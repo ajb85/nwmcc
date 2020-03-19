@@ -13,7 +13,7 @@ function UserList(props) {
   return (
     <div className={styles.UserList}>
       {users.map(nickname => (
-        <p>{nickname}</p>
+        <p key={nickname}>{nickname}</p>
       ))}
     </div>
   );
